@@ -11,13 +11,6 @@ def get_greetings():
     <html>
     <head>
         <title>Hello World!</title>
-        <style>
-        html, body {
-        margin: 0; padding: 0;
-        font-family: emoji; font-size: 3em;
-        text-align: center;
-        }
-        </style>
     </head>
     <body>
         <h1>Hello EAB!</h1>
@@ -37,13 +30,6 @@ def get_why(reason):
     <html>
     <head>
         <title>Hello World!</title>
-        <style>
-        html, body {
-        margin: 0; padding: 0;
-        font-family: emoji; font-size: 3em;
-        text-align: center;
-        }
-        </style>
     </head>
     <body>
         <p>Want a joke about %s?</p>
