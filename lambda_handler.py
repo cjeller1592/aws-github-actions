@@ -10,7 +10,7 @@ def get_greetings():
     return """
     <html>
     <head>
-        <title>Hello World!</title>
+        <title>Hello EAB!</title>
     </head>
     <body>
         <h1>Hello EAB!</h1>
@@ -29,7 +29,7 @@ def get_why(reason):
     return """
     <html>
     <head>
-        <title>Hello World!</title>
+        <title>Hello EAB!</title>
     </head>
     <body>
         <p>Want a joke about %s?</p>
