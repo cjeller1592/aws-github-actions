@@ -1,11 +1,53 @@
-def handler(event, context):
-            return {
-        'statusCode': 200,
-        'headers': {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-        },
-        'body':'Hello from Lambda!'
-        ,
-        "isBase64Encoded": False
-    }
+from minik.core import Minik
+import requests
+
+app = Minik()
+
+@app.get('/')
+def get_greetings():
+    app.response.headers = {"Content-Type": "text/html; charset=utf-8"}
+
+    return """
+    <html>
+    <head>
+        <title>Hello World!</title>
+        <style>
+        html, body {
+        margin: 0; padding: 0;
+        font-family: emoji; font-size: 3em;
+        text-align: center;
+        }
+        </style>
+    </head>
+    <body>
+        <h1>Hello EAB!</h1>
+        <p>My name is CJ. I'd like to join the Cloud Ops Team</p>
+    </body>
+    </html>"""
+
+@app.get('/why/{reason}')
+def get_why(reason):
+    # Get teh joke
+    r = requests.get('https://icanhazdadjoke.com/', headers={'Accept': 'application/json'})
+    joke = r.json()['joke']
+
+    app.response.headers = {"Content-Type": "text/html; charset=utf-8"}
+
+    return """
+    <html>
+    <head>
+        <title>Hello World!</title>
+        <style>
+        html, body {
+        margin: 0; padding: 0;
+        font-family: emoji; font-size: 3em;
+        text-align: center;
+        }
+        </style>
+    </head>
+    <body>
+        <p>Want a joke about %s?</p>
+        <p>How about something else instead?</p>
+        <p>%s</p>
+    </body>
+    </html>""" % (reason, joke)
