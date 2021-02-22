@@ -51,8 +51,8 @@ jobs:
       uses: youyo/aws-sam-action/python3.8@master
       with:
           sam_command: 'deploy --stack-name myApp \
-          --parameter-overides 
-              CertArn=ParameterValue=${{ secrets.CERTIFICATE_ARN }} \
+          --parameter-overrides 
+              CertArn=${{ secrets.CERTIFICATE_ARN }} \
               HZId=${{ secrets.HOSTED_ZONE_ID }} \
           --no-confirm-changeset'
       env:
