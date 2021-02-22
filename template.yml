@@ -10,6 +10,13 @@ Globals:
   Function:
     Timeout: 3
 
+Parameters:
+  CertArn:
+    Type: String
+
+  HZId:
+    Type: String
+
 Resources:
   HelloWorldFunction:
     Name: HelloWorld
@@ -30,6 +37,52 @@ Resources:
             Path: /why/{reason}
             Method: GET
 
+# Adding Domain Name
+# This includes the TLS certificate I made with ACM
+  DomainName:
+    Type: AWS::ApiGateway::DomainName
+    Properties:
+      RegionalCertificateArn:
+        Ref: CertArn
+      DomainName: eab.ceeej.com
+      SecurityPolicy: TLS_1_2
+      EndpointConfiguration:
+        Types:
+          - REGIONAL
+
+
+  # Finally setting up the URL mapping for the API gateway
+  UrlMapping:
+    Type: AWS::ApiGateway::BasePathMapping
+    Properties:
+      DomainName:
+        Ref: DomainName
+      RestApiId:
+        Ref: ServerlessRestApi
+      Stage: 
+        Ref: ServerlessRestApiProdStage
+    DependsOn:
+      - HelloWorldFunction
+      - ServerlessRestApi
+
+# Next is creating the A record
+  LambdaDNS:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: 
+        Ref: HZId
+      Name: eab.ceeej.com.
+      Type: A
+      AliasTarget:
+        HostedZoneId: 
+          Fn::GetAtt:
+            - DomainName
+            - RegionalHostedZoneId
+        DNSName: 
+          Fn::GetAtt: 
+            - DomainName
+            - RegionalDomainName
+
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
@@ -43,3 +96,11 @@ Outputs:
   HelloWorldFunctionIamRole:
     Description: "Implicit IAM Role created for Hello World function"
     Value: !GetAtt HelloWorldFunctionRole.Arn
+  RegionalDomainName:
+    Value: !GetAtt 
+      - DomainName
+      - RegionalDomainName
+  RegionalHostedZoneId:
+    Value: !GetAtt 
+      - DomainName
+      - RegionalHostedZoneId
