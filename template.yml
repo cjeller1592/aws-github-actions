@@ -34,7 +34,7 @@ Resources:
         WhyWorld:
           Type: Api
           Properties:
-            Path: /why/{reason}
+            Path: /joke/{subject}
             Method: GET
 
 # Adding Domain Name
