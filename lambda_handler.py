@@ -9,7 +9,7 @@ def get_greetings():
 
     return """    <html>
     <head>
-        <title>Hello Chris and Dan!</title>
+        <title>Hello EAB!</title>
         <style>
             body {
             font-family: helvetica, arial, sans-serif;
@@ -24,7 +24,7 @@ def get_greetings():
     </head>
     <body>
         <h1>Hello Chris and Dan</h1>
-        <p>My name is CJ. I'd like to join the Cloud Ops Team!</p>
+        <p>My name is CJ and I'd like to join the Cloud Ops Team!</p>
     </body>
     </html>"""
 
@@ -39,7 +39,7 @@ def get_why(subject):
     return """
     <html>
     <head>
-        <title>Hello World!</title>
+        <title>Hello EAB!</title>
         <style>
         body {
             font-family: helvetica, arial, sans-serif;
